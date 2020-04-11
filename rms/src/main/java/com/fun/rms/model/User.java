@@ -2,48 +2,49 @@ package com.fun.rms.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
-@Entity						// HIER BEZIGGGG
+@Entity
 public class User {
-	private String id;
-	private String firstName;
-	private String lastName;
-	private String loginCode;
+
+	private Integer id;
+	private String first_name;
+	private String last_name;
+	private String login_code;
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public String getId() {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
-	public String getLoginCode() {
-		return loginCode;
+	public String getLogin_code() {
+		return login_code;
 	}
 
-	public void setLoginCode(String loginCode) {
-		this.loginCode = loginCode;
+	public void setLogin_code(String login_code) {
+		this.login_code = login_code;
 	}
 
 }

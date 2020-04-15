@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.fun.rms.model.User;
@@ -16,6 +17,21 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repo;
+	
+	
+	// Login
+	public Boolean login(String code) {
+		User user = new User();
+		user.setLogin_code(code);
+		Example<User> example = Example.of(user);
+		if(repo.count(example) == 1) {
+			return true;
+		}
+		return false;
+	}
+
+//	---------------------------------------------------------------------------------------
+
 
 	// Get all
 	public List<User> getAll() {

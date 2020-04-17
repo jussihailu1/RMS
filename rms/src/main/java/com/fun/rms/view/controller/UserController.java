@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fun.rms.model.User;
-import com.fun.rms.service.UserService;
+import com.fun.rms.persistence.model.UserDAO;
+import com.fun.rms.service.logic.UserService;
 
 @RestController
 @RequestMapping("users")
@@ -43,26 +43,26 @@ public class UserController {
 //	---------------------------------------------------------------------------------------
 
 	@GetMapping()
-	public List<User> getAll() {
+	public List<UserDAO> getAll() {
 		return service.getAll();
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<User> get(@PathVariable Integer id) {
-		User user = service.get(id);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<UserDAO> get(@PathVariable Integer id) {
+		UserDAO user = service.get(id);
+		return new ResponseEntity<UserDAO>(user, HttpStatus.OK);
 	}
 
 	@PostMapping()
-	public ResponseEntity<User> add(@RequestBody User user) {
+	public ResponseEntity<UserDAO> add(@RequestBody UserDAO user) {
 		service.save(user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<UserDAO>(user, HttpStatus.OK);
 	}
 
 	@PutMapping()
-	public ResponseEntity<User> update(@RequestBody User user) {
-		User updatedUser = service.update(user);
-		return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+	public ResponseEntity<UserDAO> update(@RequestBody UserDAO user) {
+		UserDAO updatedUser = service.update(user);
+		return new ResponseEntity<UserDAO>(updatedUser, HttpStatus.OK);
 	}
 
 	@DeleteMapping()

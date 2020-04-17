@@ -1,4 +1,4 @@
-package com.fun.rms.service;
+package com.fun.rms.service.logic;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.fun.rms.model.User;
+import com.fun.rms.persistence.model.UserDAO;
 import com.fun.rms.persistence.repository.UserRepository;
 
 @Service
@@ -17,40 +17,40 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repo;
-	
+
+//	entitymanager
 	
 	// Login
 	public Boolean login(String code) {
-		User user = new User();
+		UserDAO user = new UserDAO();
 		user.setLogin_code(code);
-		Example<User> example = Example.of(user);
-		if(repo.count(example) == 1) {
+		Example<UserDAO> example = Example.of(user);
+		if (repo.count(example) == 1) {
 			return true;
 		}
 		return false;
 	}
 
-//	---------------------------------------------------------------------------------------
-
+	// ---------------------------------------------------------------------------------------
 
 	// Get all
-	public List<User> getAll() {
+	public List<UserDAO> getAll() {
 		return repo.findAll();
 	}
 
 	// Get by id
-	public User get(Integer id) {
+	public UserDAO get(Integer id) {
 		return repo.findById(id).get();
 	}
 
 	// Create
-	public void save(User user) {
+	public void save(UserDAO user) {
 		repo.save(user);
 	}
 
 	// Update
-	public User update(User userDataToUpdate) {
-		User userToUpdate = repo.findById(userDataToUpdate.getId()).get();
+	public UserDAO update(UserDAO userDataToUpdate) {
+		UserDAO userToUpdate = repo.findById(userDataToUpdate.getId()).get();
 
 		if (userDataToUpdate.getFirst_name() != null) {
 			userToUpdate.setFirst_name(userDataToUpdate.getFirst_name());
@@ -61,7 +61,7 @@ public class UserService {
 		if (userDataToUpdate.getLogin_code() != null) {
 			userToUpdate.setLogin_code(userDataToUpdate.getLogin_code());
 		}
-		
+
 		repo.save(userToUpdate);
 		return userToUpdate;
 	}

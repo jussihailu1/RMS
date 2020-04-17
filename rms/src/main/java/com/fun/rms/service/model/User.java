@@ -1,22 +1,11 @@
-package com.fun.rms.model;
+package com.fun.rms.service.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-@Entity
-@Table(name = "users")
 public class User {
-
 	private Integer id;
 	private String first_name;
 	private String last_name;
 	private String login_code;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}

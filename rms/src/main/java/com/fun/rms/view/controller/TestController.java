@@ -29,10 +29,10 @@ public class TestController {
 }
 
 class TestDish {
-	private Integer id;
-	private String name;
-	private Integer price;
-	private String picture;
+	public Integer id;
+	public String name;
+	public Integer price;
+	public String picture;
 	
 	public TestDish(Integer id, String name, Integer price, String picture) {
 		this.id = id;

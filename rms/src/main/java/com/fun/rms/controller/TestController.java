@@ -1,4 +1,4 @@
-package com.fun.rms.view.controller;
+package com.fun.rms.controller;
 
 import java.util.ArrayList;
 

@@ -17,8 +17,8 @@ public class ModelFactory {
 		return new Reservation(customers, date, time, name);
 	}
 	
-	public Session createSession(Integer customers, Integer tableNumber, LocalTime start) {
-		return new Session(customers, tableNumber, start);
+	public Session createSession(Integer customers, Integer tableNumber, LocalTime start, LocalDate date) {
+		return new Session(customers, tableNumber, start, date);
 	}
 
 	public User createUser(String firstName, String lastName, String loginCode) {

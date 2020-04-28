@@ -2,6 +2,7 @@ package com.fun.rms.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -29,5 +30,9 @@ public class ReservationService {
 
 	public Reservation findByName(String name) {
 		return repo.findByName(name);
+	}
+	
+	public List<Reservation> findAll(){
+		return repo.findAll();
 	}
 }

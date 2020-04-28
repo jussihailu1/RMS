@@ -1,7 +1,9 @@
 package com.fun.rms.service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -35,13 +37,14 @@ public class SessionService {
 	}
 
 	public void create(Integer customers, Integer tableNumber) {
-		Session session = factory.createSession(customers, tableNumber, LocalTime.now());
-
-		repo.save(session);
+		Session session = factory.createSession(customers, tableNumber, LocalTime.now(), LocalDate.now());
+		Table table = tableService.findByTableNumber(tableNumber);
+		table.setSession(session);
+		tableService.update(table);
 	}
 
 	public void create(Integer customers, Integer tableNumber, String name) {
-		Session session = factory.createSession(customers, tableNumber, LocalTime.now());
+		Session session = factory.createSession(customers, tableNumber, LocalTime.now(), LocalDate.now());
 		Reservation reservation = reservationService.findByName(name);
 		reservation.setVisited(true);
 		session.setReservation(reservation);
@@ -57,5 +60,9 @@ public class SessionService {
 		Table table = tableService.findByTableNumber(session.getTableNumber());
 		table.setSession(null);
 		tableService.update(table);
+	}
+	
+	public List<Session> findAll(){
+		return repo.findAll();
 	}
 }

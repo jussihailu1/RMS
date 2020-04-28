@@ -1,21 +1,17 @@
 package com.fun.rms.controller;
 
-import java.time.Duration;
-import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fun.rms.model.Reservation;
-import com.fun.rms.model.Session;
-import com.fun.rms.model.Table;
-import com.fun.rms.service.ReservationService;
 import com.fun.rms.service.SessionService;
-import com.fun.rms.service.TableService;
+import com.fun.rms.model.Session;
 
 @RestController
 @RequestMapping("sessions")
@@ -28,9 +24,7 @@ public class SessionController {
 
 	@PostMapping
 	public String create() {
-		
 		service.create(2, 5, "Pieter");
-
 		return  "Succes";
 	}
 	
@@ -41,4 +35,8 @@ public class SessionController {
 		return "Succes";
 	}
 	
+	@GetMapping
+	public List<Session> findAll(){
+		return service.findAll();
+	}
 }

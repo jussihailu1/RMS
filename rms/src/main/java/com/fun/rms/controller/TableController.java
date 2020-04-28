@@ -26,18 +26,4 @@ public class TableController {
 	public List<Table> getAll() {
 		return service.getAll();
 	}
-
-//	@PostMapping
-//	String temporary() {
-//		Session session = new Session();
-//		session.setCustomers(4);
-//		session.setTableNumber(2);
-//
-//		Table table = new Table();
-//		table.setTableNumber(2);
-//		table.setSession(session);
-//		service.update(table);
-//
-//		return "Succes";
-//	}
 }

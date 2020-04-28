@@ -1,6 +1,5 @@
 package com.fun.rms.model;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -35,14 +34,17 @@ public class Session {
 	
 	@Column(name = "durationinminutes")
 	private Long durationInMinutes;
+	
+	private LocalDate date;
 
 	public Session() {
 	}
 
-	public Session(Integer customers, Integer tableNumber, LocalTime start) {
+	public Session(Integer customers, Integer tableNumber, LocalTime start, LocalDate date) {
 		this.customers = customers;
 		this.tableNumber = tableNumber;
 		this.start = start;
+		this.date = date;
 	}
 
 	public Integer getId() {
@@ -90,6 +92,18 @@ public class Session {
 	}
 
 	public void setDuration(Long durationInMinutes) {
+		this.durationInMinutes = durationInMinutes;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public void setDurationInMinutes(Long durationInMinutes) {
 		this.durationInMinutes = durationInMinutes;
 	}
 

@@ -53,38 +53,8 @@ public class UserController {
 		}
 	}
 
-//	---------------------------------------------------------------------------------------
-	
-//	@GetMapping() 
-//	public ResponseEntity<User> get(@PathVariable Integer id) {
-//		
-//	}
-
 	@GetMapping()
 	public List<User> getAll() {
 		return service.getAll();
 	}
-//
-//	@GetMapping(path = "/{id}")
-//	public ResponseEntity<UserDAO> get(@PathVariable Integer id) {
-//		UserDAO user = service.get(id);
-//		return new ResponseEntity<UserDAO>(user, HttpStatus.OK);
-//	}
-//
-//	@PostMapping()
-//	public ResponseEntity<UserDAO> add(@RequestBody UserDAO user) {
-//		service.save(user);
-//		return new ResponseEntity<UserDAO>(user, HttpStatus.OK);
-//	}
-//
-//	@PutMapping()
-//	public ResponseEntity<UserDAO> update(@RequestBody UserDAO user) {
-//		UserDAO updatedUser = service.update(user);
-//		return new ResponseEntity<UserDAO>(updatedUser, HttpStatus.OK);
-//	}
-//
-//	@DeleteMapping()
-//	public String delete() {
-//		return "Delete was called";
-//	}
 }

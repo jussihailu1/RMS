@@ -60,10 +60,10 @@ public class UserController {
 //		
 //	}
 
-//	@GetMapping()
-//	public List<UserDAO> getAll() {
-//		return service.getAll();
-//	}
+	@GetMapping()
+	public List<User> getAll() {
+		return service.getAll();
+	}
 //
 //	@GetMapping(path = "/{id}")
 //	public ResponseEntity<UserDAO> get(@PathVariable Integer id) {

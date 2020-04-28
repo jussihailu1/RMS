@@ -10,15 +10,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User {
-	private Integer id;
-	private String firstname;
-	private String lastname;
-
-	@Column(name = "logincode")
-	private String logincode;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name = "firstname")
+	private String firstName;
+
+	@Column(name = "lastname")
+	private String lastName;
+	
+	@Column(name = "logincode")
+	private String loginCode;
+
+	public User(String firstName, String lastName, String loginCode) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.loginCode = loginCode;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -27,27 +38,27 @@ public class User {
 		this.id = id;
 	}
 	
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getLogincode() {
-		return logincode;
+	public String getLoginCode() {
+		return loginCode;
 	}
 
-	public void setLogincode(String logincode) {
-		this.logincode = logincode;
+	public void setLoginCode(String loginCode) {
+		this.loginCode = loginCode;
 	}
 }

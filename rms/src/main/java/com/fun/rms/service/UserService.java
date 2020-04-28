@@ -19,7 +19,7 @@ public class UserService {
 
 	// Login
 	public Boolean signIn(String logincode) {		
-		User user = repo.findByLogincode(logincode);
+		User user = repo.findByLoginCode(logincode);
 		if(user != null) {return true;}
 		else {return false;}
 	}
@@ -49,15 +49,15 @@ public class UserService {
 	public User update(User userDataToUpdate) {
 		User userToUpdate = repo.findById(userDataToUpdate.getId()).get();
 
-		if (userDataToUpdate.getFirstname() != null) {
-			userToUpdate.setFirstname(userDataToUpdate.getFirstname());
-		}
-		if (userDataToUpdate.getLastname() != null) {
-			userToUpdate.setLastname(userDataToUpdate.getLastname());
-		}
-		if (userDataToUpdate.getLogincode() != null) {
-			userToUpdate.setLogincode(userDataToUpdate.getLogincode());
-		}
+//		if (userDataToUpdate.getFirstname() != null) {
+//			userToUpdate.setFirstname(userDataToUpdate.getFirstname());
+//		}
+//		if (userDataToUpdate.getLastname() != null) {
+//			userToUpdate.setLastname(userDataToUpdate.getLastname());
+//		}
+//		if (userDataToUpdate.getLogincode() != null) {
+//			userToUpdate.setLogincode(userDataToUpdate.getLogincode());
+//		}
 
 		repo.save(userToUpdate);
 		return userToUpdate;

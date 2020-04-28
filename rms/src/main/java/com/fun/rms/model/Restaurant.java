@@ -1,5 +1,10 @@
 package com.fun.rms.model;
 
-public class Restaurant {
+import java.util.List;
 
+public class Restaurant {
+	
+	private List<Reservation> reservations;
+	private List<Session> sessions;
+	private List<Table> tables;
 }

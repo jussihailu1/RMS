@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.Reservation;
 import com.fun.rms.repository.ReservationRepository;
 
@@ -18,13 +19,16 @@ public class ReservationService {
 
 	@Autowired
 	private ReservationRepository repo;
+	
+	@Autowired
+	private ModelFactory factory;
 
 	public void add(Reservation reservation) {
 		repo.save(reservation);
 	}
 	
 	public void create(Integer customers, LocalDate date,LocalTime time, String name) {
-		Reservation reservation = new Reservation(customers, date, time, name);
+		Reservation reservation = factory.createReservation(customers, date, time, name);
 		repo.save(reservation);
 	}
 

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fun.rms.service.UserService;
 import com.fun.rms.DTO.UpdateUserRoleDTO;
-import com.fun.rms.DTO.addEmployeeDTO;
+import com.fun.rms.DTO.AddEmployeeDTO;
+import com.fun.rms.DTO.UpdateLoginCodeDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.enums.Role;
 import com.fun.rms.model.User;
@@ -33,9 +34,9 @@ public class UserController {
 	private UserService service;
 
 	@PostMapping(path = "/login")
-	public ResponseEntity<String> login(@Valid @RequestBody String logincode) {
+	public ResponseEntity<String> login(@Valid @RequestBody String loginCode) {
 		try {
-			if (service.login(logincode)) {
+			if (service.loginCodeExists(loginCode)) {
 				return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
@@ -46,11 +47,11 @@ public class UserController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<String> addEmployee(@RequestBody addEmployeeDTO data) {
+	public ResponseEntity<String> addEmployee(@RequestBody AddEmployeeDTO dto) {
 		try {
-			if (service.checkManagerLoginCode(data.getManagerLoginCode())) {
-				if (service.checkLoginCodeAvailability(data.getLoginCode())) {
-					service.addEmployee(data.getFirstName(), data.getLastName(), data.getLoginCode());
+			if (service.managerLoginCodeIsCorrect(dto.getManagerLoginCode())) {
+				if (!service.loginCodeExists(dto.getLoginCode())) {
+					service.addEmployee(dto.getFirstName(), dto.getLastName(), dto.getLoginCode());
 					return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.CREATED);
 				}
 				return new ResponseEntity<String>(Response.LOGIN_CODE_IN_USE.toString(), HttpStatus.IM_USED);
@@ -70,13 +71,40 @@ public class UserController {
 		}
 	}
 
-	@PutMapping(path = "/updateRole/{id}")
-	public ResponseEntity<String> updateRole(@PathVariable Integer id, @RequestBody UpdateUserRoleDTO data) {
+	@PutMapping(path = "/{id}/name")
+	public ResponseEntity<String> updateName(@PathVariable Integer id,
+			@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName) {
 		try {
-			if (!data.getRole().equals(Role.MANAGER)) {
-				if (!service.userAlreadyInRole(id, data.getRole())) {
-					if (service.checkManagerLoginCode(data.getManagerLoginCode())) {
-						service.updateRole(id, data.getRole());
+			service.updateName(id, firstName, lastName);
+			return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(Response.SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping(path = "/{id}/loginCode")
+	public ResponseEntity<String> updateLoginCode(@PathVariable Integer id, @RequestBody UpdateLoginCodeDTO dto) {
+		try {
+			if (service.loginCodeIsCorrect(id, dto.getOldLoginCode())) {
+				if (!service.loginCodeExists(dto.getNewLoginCode())) {
+					service.updateLoginCode(id, dto.getNewLoginCode());
+					return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
+				}
+				return new ResponseEntity<String>(Response.LOGIN_CODE_IN_USE.toString(), HttpStatus.IM_USED);
+			}
+			return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(Response.SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping(path = "/{id}/role")
+	public ResponseEntity<String> updateRole(@PathVariable Integer id, @RequestBody UpdateUserRoleDTO dto) {
+		try {
+			if (!dto.getRole().equals(Role.MANAGER)) {
+				if (!service.userAlreadyInRole(id, dto.getRole())) {
+					if (service.managerLoginCodeIsCorrect(dto.getManagerLoginCode())) {
+						service.updateRole(id, dto.getRole());
 						return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
 					}
 					return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
@@ -90,18 +118,20 @@ public class UserController {
 	}
 
 //	Dit kan misschien beter met een request body maar ik wou ook ergens query parameters gebruiken.
-	@PutMapping(path = "/passManagerRole/{managerToBeId}")
+
+	@PutMapping(path = "/{managerToBeId}/passManagerRole")
 	public ResponseEntity<String> passManagerRole(@PathVariable Integer managerToBeId,
 			@RequestParam(value = "managerLoginCode") String managerLoginCode) {
+
 		try {
-			if (service.userIsAssistantManager(managerToBeId)) {
-				if (service.checkManagerLoginCode(managerLoginCode)) {
+			if (service.managerLoginCodeIsCorrect(managerLoginCode)) {
+				if (service.userIsAssistantManager(managerToBeId)) {
 					service.passManagerRole(managerToBeId);
 					return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
 				}
-				return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<String>(Response.NOT_ASSISTANT_MANAGER.toString(), HttpStatus.UNAUTHORIZED);
 			}
-			return new ResponseEntity<String>(Response.NOT_ASSISTANT_MANAGER.toString(), HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(Response.SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

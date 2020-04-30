@@ -33,6 +33,10 @@ public class UserService {
 		return repo.findById(id).get();
 	}
 
+	public String findLoginCode(Integer id) {
+		return findById(id).getLoginCode();
+	}
+
 	public User findManager() {
 		return repo.findByRole(Role.MANAGER);
 	}
@@ -40,30 +44,43 @@ public class UserService {
 	// Functions
 	// -----------------------------------------------------------------------------------------
 
-	public Boolean login(String logincode) {
-		return repo.findByLoginCode(logincode) != null;
-	}
-
 	public void addEmployee(String firstName, String lastName, String loginCode) {
 		User user = factory.createUser(firstName, lastName, loginCode, Role.EMPLOYEE);
+		repo.save(user);
+	}
+
+	public void updateLoginCode(Integer id, String newLoginCode) {
+		User user = findById(id);
+		user.setLoginCode(newLoginCode);
+		repo.save(user);
+	}
+
+	public void updateName(Integer id, String firstName, String lastName) {
+		User user = findById(id);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
 		repo.save(user);
 	}
 
 	// Checks
 	// -----------------------------------------------------------------------------------------
 
-	public Boolean checkManagerLoginCode(String managerLoginCode) {
-		return findManager().getLoginCode().equals(managerLoginCode);
+	public Boolean loginCodeIsCorrect(Integer id, String loginCode) {
+		return findById(id).getLoginCode().equals(loginCode);
 	}
 
-	public Boolean checkLoginCodeAvailability(String loginCode) {
-		return repo.findByLoginCode(loginCode) == null;
+	public Boolean loginCodeExists(String loginCode) {
+		return repo.findByLoginCode(loginCode) != null;
 	}
-	
+
+	public Boolean managerLoginCodeIsCorrect(String managerLoginCode) {
+		return loginCodeIsCorrect(findManager().getId(), managerLoginCode);
+	}
+
 	public Boolean userAlreadyInRole(Integer id, Role role) {
 		return findById(id).getRole().equals(role);
 	}
-	
+
 	public Boolean userIsAssistantManager(Integer id) {
 		return findById(id).getRole().equals(Role.ASSISTANT_MANAGER);
 	}

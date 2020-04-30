@@ -1,6 +1,6 @@
 package com.fun.rms.DTO;
 
-public class addEmployeeDTO {
+public class AddEmployeeDTO {
 
 	private String firstName;
 	private String lastName;

@@ -13,7 +13,7 @@ import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.User;
 
 @Service
-@Transactional
+//@Transactional
 public class UserService {
 
 	@Autowired

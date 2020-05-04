@@ -13,14 +13,14 @@ import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.User;
 
 @Service
-//@Transactional
+@Transactional
 public class UserService {
 
 	@Autowired
 	private UserRepository repo;
 
 	@Autowired
-	private ModelFactory factory;
+	private ModelFactory modelFactory;
 
 	// Gets
 	// -----------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ public class UserService {
 	// -----------------------------------------------------------------------------------------
 
 	public void addEmployee(String firstName, String lastName, String loginCode) {
-		User user = factory.createUser(firstName, lastName, loginCode, Role.EMPLOYEE);
+		User user = modelFactory.createUser(firstName, lastName, loginCode, Role.EMPLOYEE);
 		repo.save(user);
 	}
 

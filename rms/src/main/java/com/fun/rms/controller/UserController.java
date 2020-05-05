@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fun.rms.service.UserService;
 import com.fun.rms.DTO.UpdateUserRoleDTO;
 import com.fun.rms.DTO.AddEmployeeDTO;
+import com.fun.rms.DTO.ResponseDTO;
 import com.fun.rms.DTO.UpdateLoginCodeDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.enums.Role;
@@ -33,13 +34,18 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
+	@GetMapping(path = "/please")
+	public Boolean please(@Valid @RequestBody String loginCode) {
+		return service.loginCodeExists(loginCode);
+	}
+
 	@PostMapping(path = "/login")
-	public ResponseEntity<String> login(@Valid @RequestBody String loginCode) {
+	public ResponseEntity<?> login(@Valid @RequestBody String loginCode) {
 		try {
 			if (service.loginCodeExists(loginCode)) {
-				return new ResponseEntity<String>(Response.SUCCES.toString(), HttpStatus.OK);
+				return ResponseEntity.ok(new ResponseDTO(Response.SUCCES));
 			} else {
-				return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
+				return ResponseEntity.ok(new ResponseDTO(Response.WRONG_CREDENTIALS));
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<String>(Response.SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR);

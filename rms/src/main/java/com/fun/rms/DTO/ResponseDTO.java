@@ -9,12 +9,16 @@ public class ResponseDTO {
 	public ResponseDTO(Response response) {
 		this.message = response.toString();
 	}
-
+	
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
-
-	public void setMessage(String response) {
-		this.message = response;
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public static ResponseDTO send(Response response) {
+		return new ResponseDTO(response);
 	}
 }

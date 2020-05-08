@@ -22,10 +22,6 @@ public class ReservationService {
 	
 	@Autowired
 	private ModelFactory factory;
-
-	public void add(Reservation reservation) {
-		repo.save(reservation);
-	}
 	
 	public void create(Integer customers, LocalDate date,LocalTime time, String name) {
 		Reservation reservation = factory.createReservation(customers, date, time, name);
@@ -38,5 +34,11 @@ public class ReservationService {
 	
 	public List<Reservation> findAll(){
 		return repo.findAll();
+	}
+	
+	public List<Reservation> findNext7Days(){
+		LocalDate today = LocalDate.now();
+		LocalDate oneWeekFurther = today.plusWeeks(1);
+		return repo.findBetween(today, oneWeekFurther);
 	}
 }

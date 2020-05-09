@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "reservations")
 public class Reservation {
@@ -18,10 +21,15 @@ public class Reservation {
 	private Integer id;
 
 	private Integer customers;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate date;
 	private LocalTime time;
 	private String name;
 	private Boolean visited;
+	
+	@JsonIgnore
+	private Boolean canceled;
 
 	public Reservation() {
 	}
@@ -32,6 +40,7 @@ public class Reservation {
 		this.time = time;
 		this.name = name;
 		this.visited = false;
+		this.canceled = false;
 	}
 
 	public Integer getId() {
@@ -80,5 +89,13 @@ public class Reservation {
 
 	public void setVisited(Boolean visited) {
 		this.visited = visited;
+	}
+
+	public Boolean getCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled(Boolean canceled) {
+		this.canceled = canceled;
 	}
 }

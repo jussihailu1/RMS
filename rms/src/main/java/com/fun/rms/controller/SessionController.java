@@ -24,7 +24,7 @@ public class SessionController {
 
 	@PostMapping
 	public String create() {
-		service.create(2, 5, "Pieter");
+		service.create(2, 5, 20);
 		return "Succes";
 	}
 

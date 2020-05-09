@@ -43,9 +43,9 @@ public class SessionService {
 		tableService.update(table);
 	}
 
-	public void create(Integer customers, Integer tableNumber, String name) {
+	public void create(Integer customers, Integer tableNumber, Integer id) {
 		Session session = factory.createSession(customers, tableNumber, LocalTime.now(), LocalDate.now());
-		Reservation reservation = reservationService.findByName(name);
+		Reservation reservation = reservationService.findById(id);
 		reservation.setVisited(true);
 		session.setReservation(reservation);
 		Table table = tableService.findByTableNumber(tableNumber);

@@ -11,8 +11,12 @@ import com.fun.rms.model.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>  {
-	Reservation findByName(String name);
+	@Query("FROM Reservation WHERE canceled = false")
+	List<Reservation> findAll();
 	
-	@Query("FROM Reservation WHERE date >= ?1 AND date <= ?2")
-	List<Reservation> findBetween(LocalDate today, LocalDate oneWeekFurther);
+	@Query("FROM Reservation WHERE name = ?1 and canceled = false")
+	List<Reservation> findByName(String name);
+	
+	@Query("FROM Reservation WHERE date >= ?1 AND date <= ?2 And canceled = false")
+	List<Reservation> findBetween(LocalDate today, LocalDate range);
 }

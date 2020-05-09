@@ -1,4 +1,6 @@
-package com.fun.rms.DTO;
+package com.fun.rms.dto;
+
+import org.springframework.http.ResponseEntity;
 
 import com.fun.rms.enums.Response;
 
@@ -20,5 +22,9 @@ public class ResponseDTO {
 	
 	public static ResponseDTO send(Response response) {
 		return new ResponseDTO(response);
+	}
+	
+	public static ResponseEntity<ResponseDTO> succes(){
+		return ResponseEntity.ok(ResponseDTO.send(Response.SUCCES));
 	}
 }

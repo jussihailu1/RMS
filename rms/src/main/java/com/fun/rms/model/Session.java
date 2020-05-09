@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "sessions")
 public class Session {
@@ -36,6 +38,9 @@ public class Session {
 	private Long durationInMinutes;
 	
 	private LocalDate date;
+	
+	@JsonIgnore
+	private Boolean deleted;
 
 	public Session() {
 	}
@@ -105,6 +110,14 @@ public class Session {
 
 	public void setDurationInMinutes(Long durationInMinutes) {
 		this.durationInMinutes = durationInMinutes;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @javax.persistence.Table(name = "tables")
 public class Table {
@@ -23,6 +25,9 @@ public class Table {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sessionid")
 	private Session session;
+	
+	@JsonIgnore
+	private Boolean deleted;
 
 	public Table() {
 	}
@@ -53,6 +58,14 @@ public class Table {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

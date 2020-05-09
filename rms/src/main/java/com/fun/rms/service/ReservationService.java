@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fun.rms.DTO.ReservationDTO;
+import com.fun.rms.dto.ReservationDTO;
 import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.Reservation;
 import com.fun.rms.repository.ReservationRepository;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fun.rms.service.UserService;
-import com.fun.rms.DTO.UpdateUserRoleDTO;
-import com.fun.rms.DTO.AddEmployeeDTO;
-import com.fun.rms.DTO.ResponseDTO;
-import com.fun.rms.DTO.UpdateLoginCodeDTO;
+import com.fun.rms.dto.AddEmployeeDTO;
+import com.fun.rms.dto.ResponseDTO;
+import com.fun.rms.dto.UpdateLoginCodeDTO;
+import com.fun.rms.dto.UpdateUserRoleDTO;
+import com.fun.rms.dto.user.DeleteUserDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.enums.Role;
 import com.fun.rms.model.User;
@@ -140,6 +142,20 @@ public class UserController {
 			return new ResponseEntity<String>(Response.WRONG_CREDENTIALS.toString(), HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(Response.SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<ResponseDTO> delete(@PathVariable Integer id, @RequestBody DeleteUserDTO deleteUserDTO) {
+		try {
+			if (service.managerLoginCodeIsCorrect(deleteUserDTO.getManagerLoginCode())) {
+				service.delete(id);
+				return ResponseDTO.succes();
+			}
+			return ResponseEntity.ok(ResponseDTO.send(Response.WRONG_CREDENTIALS));
+		} catch (Exception e) {
+			return new ResponseEntity<ResponseDTO>(ResponseDTO.send(Response.SERVER_ERROR),
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fun.rms.enums.Role;
 
 @Entity
@@ -30,6 +31,9 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	@JsonIgnore
+	private Boolean deleted;
 
 	public User() {
 	}
@@ -79,5 +83,13 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 }

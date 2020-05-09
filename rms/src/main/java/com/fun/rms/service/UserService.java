@@ -61,6 +61,23 @@ public class UserService {
 		user.setLastName(lastName);
 		repo.save(user);
 	}
+	
+	public void delete(Integer id) {
+		User user = findById(id);
+		user.setDeleted(true);
+		repo.save(user);
+	}
+
+	public void updateRole(Integer id, Role role) {
+		User user = findById(id);
+		user.setRole(role);
+		repo.save(user);
+	}
+
+	public void passManagerRole(Integer managerToBeId) {
+		updateRole(findManager().getId(), Role.ASSISTANT_MANAGER);
+		updateRole(managerToBeId, Role.MANAGER);
+	}
 
 	// Checks
 	// -----------------------------------------------------------------------------------------
@@ -83,20 +100,6 @@ public class UserService {
 
 	public Boolean userIsAssistantManager(Integer id) {
 		return findById(id).getRole().equals(Role.ASSISTANT_MANAGER);
-	}
-
-	// Role related
-	// -----------------------------------------------------------------------------------------
-
-	public void updateRole(Integer id, Role role) {
-		User user = findById(id);
-		user.setRole(role);
-		repo.save(user);
-	}
-
-	public void passManagerRole(Integer managerToBeId) {
-		updateRole(findManager().getId(), Role.ASSISTANT_MANAGER);
-		updateRole(managerToBeId, Role.MANAGER);
 	}
 
 //	public User update(User userDataToUpdate) {

@@ -1,4 +1,4 @@
-package com.fun.rms.dto;
+package com.fun.rms.DTO;
 
 import org.springframework.http.ResponseEntity;
 

@@ -1,4 +1,4 @@
-package com.fun.rms.dto.user;
+package com.fun.rms.DTO.user;
 
 public class DeleteUserDTO {
 	private String ManagerLoginCode;

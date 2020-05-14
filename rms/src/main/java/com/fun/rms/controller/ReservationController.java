@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fun.rms.dto.ReservationDTO;
-import com.fun.rms.dto.ResponseDTO;
+import com.fun.rms.DTO.ReservationDTO;
+import com.fun.rms.DTO.ResponseDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.model.Reservation;
 import com.fun.rms.service.ReservationService;

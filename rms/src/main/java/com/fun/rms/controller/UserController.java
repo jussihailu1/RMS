@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fun.rms.service.UserService;
-import com.fun.rms.dto.AddEmployeeDTO;
-import com.fun.rms.dto.ResponseDTO;
-import com.fun.rms.dto.UpdateLoginCodeDTO;
-import com.fun.rms.dto.UpdateUserRoleDTO;
-import com.fun.rms.dto.user.DeleteUserDTO;
+import com.fun.rms.DTO.AddEmployeeDTO;
+import com.fun.rms.DTO.ResponseDTO;
+import com.fun.rms.DTO.UpdateLoginCodeDTO;
+import com.fun.rms.DTO.UpdateUserRoleDTO;
+import com.fun.rms.DTO.user.DeleteUserDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.enums.Role;
 import com.fun.rms.model.User;

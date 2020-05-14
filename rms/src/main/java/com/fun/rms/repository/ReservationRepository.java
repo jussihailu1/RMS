@@ -17,6 +17,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	@Query("FROM Reservation WHERE name = ?1 and canceled = false")
 	List<Reservation> findByName(String name);
 	
-	@Query("FROM Reservation WHERE date >= ?1 AND date <= ?2 And canceled = false")
+	@Query("FROM Reservation WHERE date >= ?1 AND date <= ?2 AND canceled = false ORDER BY date ASC, time ASC")
 	List<Reservation> findBetween(LocalDate today, LocalDate range);
+	
+	@Query("FROM Reservation WHERE date = ?1 AND canceled = false ORDER BY time ASC")
+	List<Reservation> findTodays(LocalDate today);
 }

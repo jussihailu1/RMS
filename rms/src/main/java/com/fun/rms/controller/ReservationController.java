@@ -61,7 +61,7 @@ public class ReservationController {
 	@GetMapping(path = "/today")
 	public ResponseEntity<?> findTodaysReservations() {
 		try {
-			return ResponseEntity.ok(service.findNextNDays(1));
+			return ResponseEntity.ok(service.findTodays());
 		} catch (Exception e) {
 			return new ResponseEntity<ResponseDTO>(ResponseDTO.send(Response.SERVER_ERROR),
 					HttpStatus.INTERNAL_SERVER_ERROR);

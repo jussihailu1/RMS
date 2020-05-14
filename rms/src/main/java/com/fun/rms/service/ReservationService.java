@@ -41,8 +41,12 @@ public class ReservationService {
 		return repo.findAll();
 	}
 	
+	public List<Reservation> findTodays(){
+		return repo.findTodays(LocalDate.now());
+	}
+	
 	public List<Reservation> findNextNDays(Integer daysToAdd){
-		LocalDate today = LocalDate.now();
+		LocalDate today = LocalDate.now().plusDays(1);
 		LocalDate range = today.plusDays(daysToAdd);
 		return repo.findBetween(today, range);
 	}

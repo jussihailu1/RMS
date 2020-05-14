@@ -43,9 +43,9 @@ public class SessionService {
 		tableService.update(table);
 	}
 
-	public void create(Integer customers, Integer tableNumber, Integer id) {
+	public void create(Integer customers, Integer tableNumber, Integer reservationId) {
 		Session session = factory.createSession(customers, tableNumber, LocalTime.now(), LocalDate.now());
-		Reservation reservation = reservationService.findById(id);
+		Reservation reservation = reservationService.findById(reservationId);
 		reservation.setVisited(true);
 		session.setReservation(reservation);
 		Table table = tableService.findByTableNumber(tableNumber);
@@ -60,6 +60,10 @@ public class SessionService {
 		Table table = tableService.findByTableNumber(session.getTableNumber());
 		table.setSession(null);
 		tableService.update(table);
+	}
+	
+	public List<Session> findTodays(){
+		return repo.findTodays(LocalDate.now());
 	}
 	
 	public List<Session> findAll(){

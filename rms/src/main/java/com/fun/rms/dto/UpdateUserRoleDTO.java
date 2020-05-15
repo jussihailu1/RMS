@@ -1,4 +1,4 @@
-package com.fun.rms.DTO;
+package com.fun.rms.dto;
 
 import com.fun.rms.enums.Role;
 

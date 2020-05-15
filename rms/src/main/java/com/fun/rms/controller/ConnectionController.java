@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fun.rms.DTO.ResponseDTO;
+import com.fun.rms.dto.ResponseDTO;
 import com.fun.rms.enums.Response;
 
 @RestController

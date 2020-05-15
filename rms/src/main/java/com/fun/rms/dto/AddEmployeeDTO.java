@@ -1,4 +1,4 @@
-package com.fun.rms.DTO;
+package com.fun.rms.dto;
 
 public class AddEmployeeDTO {
 

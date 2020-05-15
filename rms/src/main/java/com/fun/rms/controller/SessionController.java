@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fun.rms.service.SessionService;
-import com.fun.rms.DTO.ResponseDTO;
+import com.fun.rms.dto.ResponseDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.model.Session;
 

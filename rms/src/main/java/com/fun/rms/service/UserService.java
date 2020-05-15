@@ -1,14 +1,10 @@
 package com.fun.rms.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.fun.rms.repository.UserRepository;
@@ -18,19 +14,13 @@ import com.fun.rms.model.User;
 
 @Service
 @Transactional
-public class UserService implements UserDetailsService {
+public class UserService {
 
 	@Autowired
 	private UserRepository repo;
 
 	@Autowired
 	private ModelFactory modelFactory;
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		String loginCode = repo.findByLoginCode(username).getLoginCode();
-		return new org.springframework.security.core.userdetails.User(loginCode, loginCode, new ArrayList<>());
-	}
 
 	// Gets
 	// -----------------------------------------------------------------------------------------
@@ -49,6 +39,10 @@ public class UserService implements UserDetailsService {
 
 	public User findManager() {
 		return repo.findByRole(Role.MANAGER);
+	}
+	
+	public User findByLoginCode(String loginCode) {
+		return repo.findByLoginCode(loginCode);
 	}
 
 	// Functions
@@ -97,7 +91,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public Boolean loginCodeExists(String loginCode) {
-		return repo.findByLoginCode(loginCode) != null;
+		return findByLoginCode(loginCode) != null;
 	}
 
 	public Boolean managerLoginCodeIsCorrect(String managerLoginCode) {

@@ -13,20 +13,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fun.rms.security.filters.JwtRequestFilter;
-import com.fun.rms.service.UserService;
+import com.fun.rms.service.AuthenticationService;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private UserService userService;
+	private AuthenticationService authenticationService;
 	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService);
+		auth.userDetailsService(authenticationService);
 	}
 
 	@Override

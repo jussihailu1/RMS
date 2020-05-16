@@ -8,13 +8,13 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Before;
+import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+//import org.mockito.MockitoAnnotations;
+//import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fun.rms.enums.Role;
@@ -25,7 +25,7 @@ import com.fun.rms.service.UserService;
 
 //@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class UserServiceTests {
+class UserServiceTests {
 
 	@Mock
 	UserRepository userRepository;

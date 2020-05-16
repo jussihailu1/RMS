@@ -1,4 +1,4 @@
-package com.fun.rms.service;
+package com.fun.rms;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
@@ -15,13 +15,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fun.rms.enums.Role;
 import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.User;
 import com.fun.rms.repository.UserRepository;
+import com.fun.rms.service.UserService;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class UserServiceTests {
 
 	@Mock

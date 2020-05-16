@@ -15,14 +15,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fun.rms.enums.Role;
 import com.fun.rms.factory.ModelFactory;
 import com.fun.rms.model.User;
 import com.fun.rms.repository.UserRepository;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceTests {
 
 	@Mock

@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RmsApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 		assertEquals(1, 1);
 	}
 

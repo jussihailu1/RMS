@@ -1,4 +1,4 @@
-package com.fun.rms.service;
+package com.fun.rms;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;

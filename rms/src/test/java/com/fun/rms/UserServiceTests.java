@@ -23,7 +23,6 @@ import com.fun.rms.model.User;
 import com.fun.rms.repository.UserRepository;
 import com.fun.rms.service.UserService;
 
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 class UserServiceTests {
 
@@ -35,12 +34,6 @@ class UserServiceTests {
 
 	@InjectMocks
 	UserService userService;
-
-//	Dit is niet nodig blijkbaar.
-//	@Before
-//	public void init() {
-//		MockitoAnnotations.initMocks(this);
-//	}
 
 	@Test
 	public void findAllTest() {

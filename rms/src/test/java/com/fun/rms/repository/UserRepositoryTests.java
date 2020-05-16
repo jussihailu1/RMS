@@ -13,7 +13,7 @@ import com.fun.rms.enums.Role;
 import com.fun.rms.model.User;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
 class UserRepositoryTests {
 	
 	@Autowired

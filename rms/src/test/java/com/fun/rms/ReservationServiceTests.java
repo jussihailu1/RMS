@@ -22,41 +22,40 @@ import com.fun.rms.service.ReservationService;
 
 @SpringBootTest
 public class ReservationServiceTests {
-	
-	@Mock 
+
+	@Mock
 	private ReservationRepository reservationRepository;
 
 	@Mock
 	private ModelFactory modelFactory;
-	
+
 	@InjectMocks
 	private ReservationService reservationService;
-	
+
 	@Test
 	public void findByNameTest() {
 		String nameToFind = "Thomas";
 		List<Reservation> mockReservations = new ArrayList<Reservation>();
+
 		Reservation mr1 = new Reservation(1, LocalDate.now().plusWeeks(1), LocalTime.now().plusHours(1), "Emma");
-		Reservation mr2 = new Reservation(2, LocalDate.now().plusWeeks(2), LocalTime.now().plusHours(2), nameToFind);
-		Reservation mr3 = new Reservation(3, LocalDate.now().plusWeeks(3), LocalTime.now().plusHours(3), nameToFind);
-		Reservation mr4 = new Reservation(4, LocalDate.now().plusWeeks(4), LocalTime.now().plusHours(4), "Maya");
-		Reservation mr5 = new Reservation(5, LocalDate.now().plusWeeks(5), LocalTime.now().plusHours(5), "Nigel");
 		mockReservations.add(mr1);
+		Reservation mr2 = new Reservation(2, LocalDate.now().plusWeeks(2), LocalTime.now().plusHours(2), nameToFind);
 		mockReservations.add(mr2);
+		Reservation mr3 = new Reservation(3, LocalDate.now().plusWeeks(3), LocalTime.now().plusHours(3), nameToFind);
 		mockReservations.add(mr3);
+		Reservation mr4 = new Reservation(4, LocalDate.now().plusWeeks(4), LocalTime.now().plusHours(4), "Maya");
 		mockReservations.add(mr4);
+		Reservation mr5 = new Reservation(5, LocalDate.now().plusWeeks(5), LocalTime.now().plusHours(5), "Nigel");
 		mockReservations.add(mr5);
-		
+
 		List<Reservation> expectedReservations = new ArrayList<>();
 		Reservation er1 = new Reservation(2, LocalDate.now().plusWeeks(2), LocalTime.now().plusHours(2), nameToFind);
-		Reservation er2 = new Reservation(3, LocalDate.now().plusWeeks(3), LocalTime.now().plusHours(3), nameToFind);
 		expectedReservations.add(er1);
+		Reservation er2 = new Reservation(3, LocalDate.now().plusWeeks(3), LocalTime.now().plusHours(3), nameToFind);
 		expectedReservations.add(er2);
 
-//		Dit moet repo zijn!!!
-		when(reservationService.findByName(nameToFind)).thenReturn(expectedReservations);
+		when(reservationRepository.findByName(nameToFind)).thenReturn(expectedReservations);
 
-		// test
 		List<Reservation> foundReservations = reservationService.findByName(nameToFind);
 
 		assertEquals(2, foundReservations.size());

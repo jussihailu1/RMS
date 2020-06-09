@@ -48,7 +48,6 @@ class UserServiceTests {
 
 		when(userRepository.findAll()).thenReturn(list);
 
-		// test
 		List<User> usersList = userService.findAll();
 
 		assertEquals(3, usersList.size());
@@ -78,31 +77,4 @@ class UserServiceTests {
 
 		verify(userRepository, times(1)).save(user);
 	}
-
-//	Check test
-	
-//	@Test
-//	public void loginCodeIsCorrectTest() {
-//		Integer id = 1;
-//		String loginCode = "1234";
-//		Boolean result = userService.findById(id).getLoginCode().equals(loginCode);
-//		
-////		Do something.
-//	}
-
-//	public Boolean loginCodeExists(String loginCode) {
-//		return repo.findByLoginCode(loginCode) != null;
-//	}
-//
-//	public Boolean managerLoginCodeIsCorrect(String managerLoginCode) {
-//		return loginCodeIsCorrect(findManager().getId(), managerLoginCode);
-//	}
-//
-//	public Boolean userAlreadyInRole(Integer id, Role role) {
-//		return findById(id).getRole().equals(role);
-//	}
-//
-//	public Boolean userIsAssistantManager(Integer id) {
-//		return findById(id).getRole().equals(Role.ASSISTANT_MANAGER);
-//	}
 }

@@ -28,4 +28,8 @@ public class TableService {
 	public Table findByTableNumber(Integer tableNumber) {
 		return repo.findByTableNumber(tableNumber);
 	}
+	
+	public List<Table> findAvailableTables(){
+		return repo.findAvailableTables();
+	}
 }

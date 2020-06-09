@@ -27,4 +27,8 @@ public class ResponseDTO {
 	public static ResponseEntity<ResponseDTO> succes(){
 		return ResponseEntity.ok(ResponseDTO.send(Response.SUCCES));
 	}
+	
+	public static ResponseEntity<ResponseDTO> error(){
+		return ResponseEntity.ok(ResponseDTO.send(Response.SERVER_ERROR));
+	}
 }

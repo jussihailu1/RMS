@@ -1,4 +1,4 @@
-package com.fun.rms.security.filters;
+package com.fun.rms.security;
 
 import java.io.IOException;
 
@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fun.rms.security.util.JwtUtil;
 import com.fun.rms.service.AuthenticationService;
 
 @Component
@@ -34,9 +33,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 		String username = null;
 		String jwt = null;
-//		TODO: "Bearer " in een variabele stoppen
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			jwt = authorizationHeader.substring(7);
+		String bearer = "Bearer ";
+		if (authorizationHeader != null && authorizationHeader.startsWith(bearer)) {
+			jwt = authorizationHeader.substring(bearer.length());
 			username = jwtUtil.extractUsername(jwt);
 		}
 

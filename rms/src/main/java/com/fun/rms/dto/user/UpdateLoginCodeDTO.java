@@ -1,4 +1,4 @@
-package com.fun.rms.dto;
+package com.fun.rms.dto.user;
 
 public class UpdateLoginCodeDTO {
 	private String oldLoginCode;

@@ -1,4 +1,4 @@
-package com.fun.rms.dto;
+package com.fun.rms.dto.reservation;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

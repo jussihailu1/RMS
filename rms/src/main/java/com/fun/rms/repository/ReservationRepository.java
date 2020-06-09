@@ -14,7 +14,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	@Query("FROM Reservation WHERE canceled = false")
 	List<Reservation> findAll();
 	
-	@Query("FROM Reservation WHERE name = ?1 and canceled = false")
+	@Query("FROM Reservation WHERE name = ?1 AND canceled = false")
 	List<Reservation> findByName(String name);
 	
 	@Query("FROM Reservation WHERE date >= ?1 AND date <= ?2 AND canceled = false ORDER BY date ASC, time ASC")
@@ -22,4 +22,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	
 	@Query("FROM Reservation WHERE date = ?1 AND canceled = false ORDER BY time ASC")
 	List<Reservation> findTodays(LocalDate today);
+	
+	@Query("From Reservation WHERE date = ?1 AND visited = false AND canceled = false")
+	List<Reservation> findTodaysWhereNotVisited(LocalDate today);
 }

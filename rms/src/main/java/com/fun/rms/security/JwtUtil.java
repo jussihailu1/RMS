@@ -1,4 +1,4 @@
-package com.fun.rms.security.util;
+package com.fun.rms.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -41,9 +41,10 @@ public class JwtUtil {
 		return createToken(claims, userDetails.getUsername());
 	}
 
+//	TODO: Eracherkomen of die tijd nou minuten of uur is. Het was eerst 10 maar heb er 100 van gemaakt.
 	private String createToken(Map<String, Object> claims, String subject) {
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) //De laatste 10 is het aantal uur
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 100)) //De laatste 10 is het aantal uur maar ik denk eerlijk gezegd minuten.
 				.signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
 	}
 

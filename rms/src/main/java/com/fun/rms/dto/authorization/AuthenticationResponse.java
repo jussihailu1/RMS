@@ -1,4 +1,4 @@
-package com.fun.rms.security.models;
+package com.fun.rms.dto.authorization;
 
 public class AuthenticationResponse {
 	private final String jwt;

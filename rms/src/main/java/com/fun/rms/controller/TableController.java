@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fun.rms.service.TableService;
+import com.fun.rms.dto.ResponseDTO;
 import com.fun.rms.model.Session;
 import com.fun.rms.model.Table;
 
@@ -31,5 +32,14 @@ public class TableController {
 	@GetMapping(path = "/{tableNumber}")
 	public Table findByTableNumber(@PathVariable Integer tableNumber) {
 		return service.findByTableNumber(tableNumber);
+	}
+	
+	@GetMapping(path = "/available")
+	public ResponseEntity<?> getAvailableTables(){
+		try {
+			return ResponseEntity.ok(service.findAvailableTables());
+		} catch (Exception e) {
+			return ResponseDTO.error();
+		}
 	}
 }

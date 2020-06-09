@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fun.rms.dto.ReservationDTO;
 import com.fun.rms.dto.ResponseDTO;
+import com.fun.rms.dto.reservation.ReservationDTO;
 import com.fun.rms.enums.Response;
 import com.fun.rms.model.Reservation;
 import com.fun.rms.service.ReservationService;
@@ -32,7 +33,7 @@ public class ReservationController {
 	private ReservationService service;
 
 	@PostMapping
-	public ResponseEntity<?> add(@RequestBody ReservationDTO reservation) {
+	public ResponseEntity<?> add(@Valid @RequestBody ReservationDTO reservation) {
 		try {
 			service.save(reservation.getCustomers(), reservation.getDate(), reservation.getTime(),
 					reservation.getName());
@@ -43,7 +44,7 @@ public class ReservationController {
 		}
 	}
 
-	@GetMapping
+	@GetMapping(path = "/all")
 	public List<Reservation> findAll() {
 		return service.findAll();
 	}
@@ -58,6 +59,16 @@ public class ReservationController {
 		}
 	}
 
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<?> findById(@PathVariable Integer id) {
+		return ResponseEntity.ok(service.findById(id));
+	}
+
+	@GetMapping()
+	public List<Reservation> findByName(@RequestParam(value = "name") String name) {
+		return service.findByName(name);
+	}
+
 	@GetMapping(path = "/today")
 	public ResponseEntity<?> findTodaysReservations() {
 		try {
@@ -68,24 +79,30 @@ public class ReservationController {
 		}
 	}
 
-	@GetMapping(path = "/{name}")
-	public List<Reservation> findByName(@PathVariable String name) {
-		return service.findByName(name);
-	}
-	
-	@PutMapping(path = "/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody ReservationDTO reservation){
+	@GetMapping(path = "/today/notvisited")
+	public ResponseEntity<?> findTodaysReservationsNotVisited() {
 		try {
-			service.update(reservation);
-			return ResponseEntity.ok(ResponseDTO.send(Response.SUCCES));
+			return ResponseEntity.ok(service.findTodaysNotVisited());
 		} catch (Exception e) {
 			return new ResponseEntity<ResponseDTO>(ResponseDTO.send(Response.SERVER_ERROR),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<?> update(@RequestBody Reservation reservation) {
+		service.update(reservation);
+		return ResponseDTO.succes();
+	}
 	
-	@PutMapping(path = "/{id}/cancel")
-	public ResponseEntity<ResponseDTO> cancel(@PathVariable Integer id){
+	@PutMapping(path = "/{id}/toggleVisited")
+	public ResponseEntity<?> toggleVisited(@PathVariable Integer id){
+		service.toggleVisited(id);
+		return ResponseDTO.succes();
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<ResponseDTO> cancel(@PathVariable Integer id) {
 		try {
 			service.cancel(id);
 			return ResponseEntity.ok(ResponseDTO.send(Response.SUCCES));

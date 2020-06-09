@@ -50,6 +50,7 @@ public class Session {
 		this.tableNumber = tableNumber;
 		this.start = start;
 		this.date = date;
+		this.deleted = false;
 	}
 
 	public Integer getId() {
